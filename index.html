@@ -12,15 +12,20 @@
 <body>
     <div class="mainElement">
         <h1>Hangman Game</h1>
-        <button>Start Game</button>
+        <button class="btn">Start Game</button>
     </div>
 
     <div class="mainElement">
-        <input type="text" placeholder="Add a new word">
-        <button>Add</button>
-    </div>
-    <div class="mainElement">
         <canvas></canvas>
+    </div>
+
+    <div class="mainElement flex" id="addWord">
+        <div>
+            <input type="text" class="textInput" placeholder="Add a new word">
+        </div>
+        <div>
+            <button class="btn" id="addBtn">Add</button>
+        </div>            
     </div>
 
     <script src="js/canvas.js"></script>
@@ -32,7 +37,7 @@
     <div class="githubLink">
         <img src="img/github.png" alt="GitHub" width="32px" height="32px">
         <p><a href="https://github.com/Jebrayam" target="_blank" rel="noopener noreferrer">Jebrayam</a></p>
-    </div>    
+    </div>
 </footer>
 
 </html>
