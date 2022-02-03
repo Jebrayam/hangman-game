@@ -1,0 +1,18 @@
+.mainElement {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
+
+canvas {
+    height: 800px;
+    width: 1200px;
+}
+
+.githubLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
