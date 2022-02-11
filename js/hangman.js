@@ -1,5 +1,8 @@
 var splittedWord;
 var letterIdxs = [];
+var lettersCheck = [];
+var wrongLetters = [];
+const TRIES = 7;
 
 var words = ["autumn", "bathroom", "body", "christmas", "clothes", "colours", "animals", 
             "drinks", "easter", "family", "feelings", "food", "fruits", "furniture", "halloween",
@@ -9,10 +12,14 @@ var words = ["autumn", "bathroom", "body", "christmas", "clothes", "colours", "a
 var startBtn = document.querySelector("#startBtn");
 
 startBtn.addEventListener("click", function(){
+    clearCanvas();
+    resetVariables();
+    
     var randomWord = returnRandomWord(words);  
     splittedWord = randomWord.split('');
-
+    
     console.log(splittedWord);   
+    console.log(words);
     drawLines(splittedWord.length);
 
     document.addEventListener("keyup", pressedKey);
@@ -27,6 +34,7 @@ addBtn.addEventListener("click", function(){
     if (newWord != ""){
         words.push(newWord);
         alert("New word added to the game.")
+        inputField.value = "";
     } else {
         alert("Please enter a word.")
     }
@@ -47,12 +55,21 @@ function pressedKey(event){
     console.log(splittedWord);
 
     var okLetter = event.key.toUpperCase();
+    
+    if(isInArray(okLetter, lettersCheck) || isInArray(okLetter, wrongLetters)){
+        return;
+    }
 
     if (!isInSecredWord(okLetter)){
+        showWrongLetter(okLetter);
+        wrongChoose(okLetter);
+        drawHangmanPart();
+        setTimeout(checkLoose, 500);
         return;
     }
 
     showRightLetter(okLetter, letterIdxs);
+    setTimeout(checkWin, 500);
 }
 
 function isValidKey(letterCode){
@@ -76,7 +93,41 @@ function isInSecredWord(letter){
         if (iLetter == letter){
             isInWord = true;
             letterIdxs.push(index);
+            lettersCheck.push(iLetter);
         }
     });
     return isInWord;
+}
+
+function wrongChoose(letter){
+    wrongLetters.push(letter);
+}
+
+function checkWin(){
+    if(lettersCheck.length == splittedWord.length){
+        removeKeyUpListener();
+        alert("You win!!");
+        resetVariables();
+        clearCanvas();
+    }
+}
+
+function resetVariables(){
+    splittedWord = [];
+    letterIdxs = [];
+    lettersCheck = [];
+    wrongLetters = [];   
+}
+
+function checkLoose(){
+    if(wrongLetters.length >= TRIES){
+        removeKeyUpListener();
+        alert("You loose!!");
+        resetVariables();
+        clearCanvas();
+    }
+}
+
+function removeKeyUpListener(){
+    document.removeEventListener('keyup', pressedKey);
 }
