@@ -2,6 +2,7 @@ var splittedWord;
 var letterIdxs = [];
 var lettersCheck = [];
 var wrongLetters = [];
+var randomWord;
 const TRIES = 7;
 
 var words = ["autumn", "bathroom", "body", "christmas", "clothes", "colours", "animals", 
@@ -15,11 +16,9 @@ startBtn.addEventListener("click", function(){
     clearCanvas();
     resetVariables();
     
-    var randomWord = returnRandomWord(words);  
+    randomWord = returnRandomWord(words);  
     splittedWord = randomWord.split('');
     
-    console.log(splittedWord);   
-    console.log(words);
     drawLines(splittedWord.length);
 
     document.addEventListener("keyup", pressedKey);
@@ -51,8 +50,6 @@ function pressedKey(event){
     if (!isValidKey(event.keyCode)){
         return;
     }
-    console.log(event.key);
-    console.log(splittedWord);
 
     var okLetter = event.key.toUpperCase();
     
@@ -122,7 +119,7 @@ function resetVariables(){
 function checkLoose(){
     if(wrongLetters.length >= TRIES){
         removeKeyUpListener();
-        alert("You loose!!");
+        alert("You loose!! The word was " + randomWord);
         resetVariables();
         clearCanvas();
     }
