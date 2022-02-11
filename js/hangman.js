@@ -12,6 +12,9 @@ var words = ["autumn", "bathroom", "body", "christmas", "clothes", "colours", "a
 
 var startBtn = document.querySelector("#startBtn");
 
+var addBtn = document.querySelector("#addBtn");
+var inputField = document.querySelector("#inputField");
+
 startBtn.addEventListener("click", function(){
     clearCanvas();
     resetVariables();
@@ -23,9 +26,6 @@ startBtn.addEventListener("click", function(){
 
     document.addEventListener("keyup", pressedKey);
 });
-
-var addBtn = document.querySelector("#addBtn");
-var inputField = document.querySelector("#inputField");
 
 addBtn.addEventListener("click", function(){
     var newWord  = inputField.value;
@@ -40,6 +40,7 @@ addBtn.addEventListener("click", function(){
     
 });
 
+
 function returnRandomWord(words){
     var word = words[Math.floor(Math.random()*words.length)];
 
@@ -47,6 +48,10 @@ function returnRandomWord(words){
 }
 
 function pressedKey(event){ 
+    if (inputField == document.activeElement){
+        return;
+    }
+
     if (!isValidKey(event.keyCode)){
         return;
     }
